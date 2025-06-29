@@ -65,6 +65,11 @@ type Property struct {
 		Gym            bool `json:"gym,omitempty"`
 		SwimmingPool   bool `json:"swimming_pool,omitempty"`
 	} `json:"amenities"`
+
+	Images []struct {
+		URL     string `json:"url"`
+		Caption string `json:"caption,omitempty"`
+	} `json:"images,omitempty"`
 }
 
 type PropertyResponse struct {

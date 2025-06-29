@@ -56,7 +56,17 @@
 			"water_purifier": true,
 			"power_backup": true,
 			"security": true
-		}
+		},
+		"images": [
+			{
+				"url": "https://images.pexels.com/photos/10827221/pexels-photo-10827221.jpeg",
+				"caption": "Standard room"
+			},
+			{
+				"url": "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg",
+				"caption": "Common kitchen area"
+			}
+		]
 	},
 	{
 		"id": "prop_pg_002",
@@ -85,6 +95,16 @@
 				"lng": 77.079
 			}
 		},
+		"images": [
+			{
+				"url": "https://images.pexels.com/photos/10827221/pexels-photo-10827221.jpeg",
+				"caption": "Standard room"
+			},
+			{
+				"url": "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg",
+				"caption": "Common kitchen area"
+			}
+		],
 		"specs": {
 			"bedrooms": 1,
 			"bathrooms": 1,

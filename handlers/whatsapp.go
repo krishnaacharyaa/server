@@ -15,9 +15,10 @@ import (
 )
 
 type WhatsAppHandler struct {
-	cfg         *config.AppConfig
-	propertySvc *services.PropertyService
-	aiClient    services.AIClient
+	cfg            *config.AppConfig
+	propertySvc    *services.PropertyService
+	aiClient       services.AIClient
+	messageCounter int // For tracking message sequence
 }
 
 func NewWhatsAppHandler(cfg *config.AppConfig, propertySvc *services.PropertyService) (*WhatsAppHandler, error) {
@@ -36,26 +37,28 @@ func NewWhatsAppHandler(cfg *config.AppConfig, propertySvc *services.PropertySer
 func (wh *WhatsAppHandler) VerifyWebhook(w http.ResponseWriter, r *http.Request) {
 	log.Println("🔍 Verification request received")
 
-	mode := r.URL.Query().Get("hub.mode")
-	token := r.URL.Query().Get("hub.verify_token")
-	challenge := r.URL.Query().Get("hub.challenge")
+	query := r.URL.Query()
+	mode := query.Get("hub.mode")
+	token := query.Get("hub.verify_token")
+	challenge := query.Get("hub.challenge")
 
-	log.Printf("🔎 Verification params - Mode: %s, Token: %s, Challenge: %s", mode, token, challenge)
+	log.Printf("🔎 Verification params - Mode: %s, Token: %s", mode, token)
 
 	if mode == "subscribe" && token == wh.cfg.VerifyToken {
 		log.Println("✅ Webhook verified successfully")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(challenge))
-	} else {
-		log.Println("❌ Webhook verification failed")
-		w.WriteHeader(http.StatusForbidden)
+		return
 	}
+
+	log.Println("❌ Webhook verification failed")
+	w.WriteHeader(http.StatusForbidden)
 }
 
 func (wh *WhatsAppHandler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
+	startTime := time.Now()
 	log.Println("📩 Incoming webhook request")
 
-	// Read and log raw body
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Printf("❌ Error reading request body: %v", err)
@@ -64,9 +67,8 @@ func (wh *WhatsAppHandler) HandleWebhook(w http.ResponseWriter, r *http.Request)
 	}
 	defer r.Body.Close()
 
-	log.Printf("📦 Raw payload: %s", string(body))
+	log.Printf("📦 Raw payload size: %d bytes", len(body))
 
-	// Parse JSON payload
 	var payload models.WebhookPayload
 	if err := json.Unmarshal(body, &payload); err != nil {
 		log.Printf("❌ Error parsing JSON: %v", err)
@@ -74,60 +76,56 @@ func (wh *WhatsAppHandler) HandleWebhook(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	log.Printf("📝 Parsed payload: %+v", payload)
+	for _, entry := range payload.Entry {
+		log.Printf("📋 Processing entry ID: %s", entry.ID)
 
-	// Process each entry
-	for i, entry := range payload.Entry {
-		log.Printf("📋 Entry %d: %s", i+1, entry.ID)
+		for _, change := range entry.Changes {
+			for _, message := range change.Value.Messages {
+				wh.messageCounter++
+				log.Printf("💬 Message #%d from %s: %s",
+					wh.messageCounter,
+					message.From,
+					message.Text.Body)
 
-		for j, change := range entry.Changes {
-			log.Printf("🔄 Change %d in field: %s", j+1, change.Field)
-
-			// Process messages
-			for _, entry := range payload.Entry {
-				for _, change := range entry.Changes {
-					for _, message := range change.Value.Messages {
-						// Get all properties as JSON
-						properties := wh.propertySvc.GetProperties()
-						propertiesJSON, err := json.Marshal(properties)
-						if err != nil {
-							log.Printf("❌ Error marshaling properties: %v", err)
-							continue
-						}
-
-						// Generate AI response with full property data
-						ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-						defer cancel()
-
-						responseText, err := wh.aiClient.GeneratePropertyResponse(
-							ctx,
-							message.Text.Body,
-							propertiesJSON,
-						)
-						if err != nil {
-							log.Printf("❌ AI error: %v", err)
-							responseText = "Sorry, I couldn't process your request. Please try again later."
-						}
-
-						wh.sendMessage(message.From, responseText)
-					}
-				}
+				go wh.processMessage(message.From, message.Text.Body)
 			}
 		}
 	}
 
 	w.WriteHeader(http.StatusOK)
+	log.Printf("✅ Request processed in %v", time.Since(startTime))
 }
 
-func (wh *WhatsAppHandler) sendMessage(to, text string) {
-	if wh.cfg.AccessToken == "" || wh.cfg.PhoneNumberID == "" {
-		log.Println("❌ Missing required configuration (ACCESS_TOKEN or PHONE_NUMBER_ID)")
+func (wh *WhatsAppHandler) processMessage(sender, message string) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	properties := wh.propertySvc.GetProperties()
+
+	// Get AI response with potential image references
+	responseText, imageURLs, err := wh.aiClient.GeneratePropertyResponse(
+		ctx,
+		message,
+		properties,
+	)
+	if err != nil {
+		log.Printf("❌ AI error: %v", err)
+		responseText = "Sorry, I couldn't process your request. Please try again later."
+	}
+
+	// Send text response first
+	if err := wh.sendTextMessage(sender, responseText); err != nil {
+		log.Printf("❌ Failed to send text message: %v", err)
 		return
 	}
 
-	url := fmt.Sprintf("https://graph.facebook.com/v18.0/%s/messages", wh.cfg.PhoneNumberID)
-	log.Printf("📤 Sending message to URL: %s", url)
+	// Send images if available
+	if len(imageURLs) > 0 {
+		wh.sendImages(sender, imageURLs)
+	}
+}
 
+func (wh *WhatsAppHandler) sendTextMessage(to, text string) error {
 	payload := models.MessageResponse{
 		MessagingProduct: "whatsapp",
 		RecipientType:    "individual",
@@ -138,35 +136,66 @@ func (wh *WhatsAppHandler) sendMessage(to, text string) {
 		}{Body: text},
 	}
 
-	payloadBytes, err := json.Marshal(payload)
-	if err != nil {
-		log.Printf("❌ Error marshaling payload: %v", err)
-		return
+	return wh.sendAPIRequest(payload)
+}
+
+func (wh *WhatsAppHandler) sendImages(to string, imageURLs []string) {
+	maxImages := 5 // WhatsApp limit
+	if len(imageURLs) > maxImages {
+		imageURLs = imageURLs[:maxImages]
 	}
 
-	log.Printf("📨 Outgoing payload: %s", string(payloadBytes))
+	for _, imgURL := range imageURLs {
+		payload := map[string]interface{}{
+			"messaging_product": "whatsapp",
+			"recipient_type":    "individual",
+			"to":                to,
+			"type":              "image",
+			"image": map[string]interface{}{
+				"link": imgURL,
+			},
+		}
+
+		if err := wh.sendAPIRequest(payload); err != nil {
+			log.Printf("❌ Failed to send image: %v", err)
+			continue
+		}
+
+		time.Sleep(500 * time.Millisecond) // Rate limiting
+	}
+}
+
+func (wh *WhatsAppHandler) sendAPIRequest(payload interface{}) error {
+	if wh.cfg.AccessToken == "" || wh.cfg.PhoneNumberID == "" {
+		return fmt.Errorf("missing required configuration (ACCESS_TOKEN or PHONE_NUMBER_ID)")
+	}
+
+	url := fmt.Sprintf("https://graph.facebook.com/v18.0/%s/messages", wh.cfg.PhoneNumberID)
+
+	payloadBytes, err := json.Marshal(payload)
+	if err != nil {
+		return fmt.Errorf("error marshaling payload: %w", err)
+	}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payloadBytes))
 	if err != nil {
-		log.Printf("❌ Error creating request: %v", err)
-		return
+		return fmt.Errorf("error creating request: %w", err)
 	}
 
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", wh.cfg.AccessToken))
+	req.Header.Set("Authorization", "Bearer "+wh.cfg.AccessToken)
 	req.Header.Set("Content-Type", "application/json")
 
-	client := &http.Client{}
+	client := &http.Client{Timeout: 10 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Printf("❌ Error sending request: %v", err)
-		return
+		return fmt.Errorf("error sending request: %w", err)
 	}
 	defer resp.Body.Close()
 
-	responseBody, _ := io.ReadAll(resp.Body)
-	log.Printf("📩 Response status: %d, body: %s", resp.StatusCode, string(responseBody))
-
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("❌ Message sending failed with status: %d", resp.StatusCode)
+		body, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("API request failed with status %d: %s", resp.StatusCode, string(body))
 	}
+
+	return nil
 }
