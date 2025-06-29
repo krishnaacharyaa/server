@@ -1,0 +1,597 @@
+[
+	{
+		"id": "prop_pg_001",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 12000,
+		"deposit": 12000,
+		"maintenance": 0,
+		"negotiable": false,
+		"final_price": 12000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "DLF Phase 1",
+			"micro_locality": "Block A",
+			"landmarks": ["DLF Cyber City", "Ambience Mall"],
+			"transport": {
+				"company_bus": "Multiple IT companies",
+				"auto_rickshaw": true,
+				"nearest_metro": "Sikanderpur"
+			},
+			"coordinates": {
+				"lat": 28.4723,
+				"lng": 77.0946
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 120,
+			"furnishing": "furnished",
+			"floor": 2,
+			"total_floors": 3,
+			"age": 4,
+			"available_from": "2023-12-01",
+			"tenant_preference": "working_professional",
+			"gender_preference": "male"
+		},
+		"pg_specific": {
+			"meals_included": "breakfast_dinner",
+			"room_sharing": "single",
+			"laundry_service": true,
+			"housekeeping": "daily",
+			"curfew_time": "11:30 PM",
+			"visitor_policy": "day_only",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": true,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true
+		}
+	},
+	{
+		"id": "prop_pg_002",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 10000,
+		"deposit": 10000,
+		"maintenance": 1000,
+		"negotiable": true,
+		"final_price": 11000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 14",
+			"micro_locality": "Near Medanta",
+			"landmarks": ["Medanta Hospital", "Sector 14 Market"],
+			"transport": {
+				"company_bus": false,
+				"auto_rickshaw": true,
+				"nearest_metro": "Huda City Center"
+			},
+			"coordinates": {
+				"lat": 28.4595,
+				"lng": 77.079
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 110,
+			"furnishing": "semi-furnished",
+			"floor": 1,
+			"total_floors": 2,
+			"age": 3,
+			"available_from": "2023-11-15",
+			"tenant_preference": "student",
+			"gender_preference": "female"
+		},
+		"pg_specific": {
+			"meals_included": "all",
+			"room_sharing": "double",
+			"laundry_service": true,
+			"housekeeping": "daily",
+			"curfew_time": "10:30 PM",
+			"visitor_policy": "restricted",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": false,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true
+		}
+	},
+	{
+		"id": "prop_pg_003",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 15000,
+		"deposit": 15000,
+		"maintenance": 0,
+		"negotiable": false,
+		"final_price": 15000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 56",
+			"micro_locality": "Near Galleria Market",
+			"landmarks": ["Galleria Market", "Sector 56 Metro Station"],
+			"transport": {
+				"company_bus": "Multiple IT companies",
+				"auto_rickshaw": true,
+				"nearest_metro": "Sector 56"
+			},
+			"coordinates": {
+				"lat": 28.4032,
+				"lng": 77.0492
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 140,
+			"furnishing": "furnished",
+			"floor": 3,
+			"total_floors": 4,
+			"age": 2,
+			"available_from": "2023-12-01",
+			"tenant_preference": "working_professional",
+			"gender_preference": "any"
+		},
+		"pg_specific": {
+			"meals_included": "breakfast_dinner",
+			"room_sharing": "single",
+			"laundry_service": true,
+			"housekeeping": "daily",
+			"curfew_time": "11:00 PM",
+			"visitor_policy": "day_only",
+			"food_type": "veg_nonveg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": true,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true,
+			"gym": true
+		}
+	},
+	{
+		"id": "prop_pg_004",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 9000,
+		"deposit": 9000,
+		"maintenance": 500,
+		"negotiable": true,
+		"final_price": 9500,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sohna Road",
+			"micro_locality": "Near Vatika Chowk",
+			"landmarks": ["Vatika Chowk", "Unitech Cyber Park"],
+			"transport": {
+				"company_bus": "Some IT companies",
+				"auto_rickshaw": true,
+				"nearest_metro": "MG Road"
+			},
+			"coordinates": {
+				"lat": 28.4106,
+				"lng": 77.0472
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 100,
+			"furnishing": "semi-furnished",
+			"floor": 1,
+			"total_floors": 2,
+			"age": 5,
+			"available_from": "2023-11-20",
+			"tenant_preference": "student",
+			"gender_preference": "female"
+		},
+		"pg_specific": {
+			"meals_included": "all",
+			"room_sharing": "triple",
+			"laundry_service": false,
+			"housekeeping": "weekly",
+			"curfew_time": "10:00 PM",
+			"visitor_policy": "restricted",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": false,
+			"tv": false,
+			"refrigerator": true,
+			"washing_machine": false,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true
+		}
+	},
+	{
+		"id": "prop_pg_005",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 18000,
+		"deposit": 18000,
+		"maintenance": 0,
+		"negotiable": false,
+		"final_price": 18000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 43",
+			"micro_locality": "Near Golf Course Road",
+			"landmarks": ["Golf Course Road", "Cyber City"],
+			"transport": {
+				"company_bus": "Multiple IT companies",
+				"auto_rickshaw": true,
+				"nearest_metro": "Cyber City"
+			},
+			"coordinates": {
+				"lat": 28.4961,
+				"lng": 77.0898
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 160,
+			"furnishing": "fully-furnished",
+			"floor": 5,
+			"total_floors": 8,
+			"age": 1,
+			"available_from": "2023-12-15",
+			"tenant_preference": "working_professional",
+			"gender_preference": "any"
+		},
+		"pg_specific": {
+			"meals_included": "all",
+			"room_sharing": "single",
+			"laundry_service": true,
+			"housekeeping": "daily",
+			"curfew_time": "12:00 AM",
+			"visitor_policy": "day_only",
+			"food_type": "veg_nonveg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": true,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true,
+			"gym": true,
+			"swimming_pool": true
+		}
+	},
+	{
+		"id": "prop_pg_006",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 8000,
+		"deposit": 8000,
+		"maintenance": 500,
+		"negotiable": true,
+		"final_price": 8500,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 47",
+			"micro_locality": "Near Palam Vihar",
+			"landmarks": ["Palam Vihar", "Sector 47 Market"],
+			"transport": {
+				"company_bus": false,
+				"auto_rickshaw": true,
+				"nearest_metro": "Palam Vihar"
+			},
+			"coordinates": {
+				"lat": 28.4857,
+				"lng": 77.0524
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 90,
+			"furnishing": "semi-furnished",
+			"floor": 2,
+			"total_floors": 3,
+			"age": 6,
+			"available_from": "2023-11-01",
+			"tenant_preference": "student",
+			"gender_preference": "male"
+		},
+		"pg_specific": {
+			"meals_included": "none",
+			"room_sharing": "dormitory",
+			"laundry_service": false,
+			"housekeeping": "weekly",
+			"curfew_time": "10:00 PM",
+			"visitor_policy": "restricted",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": false,
+			"tv": false,
+			"refrigerator": true,
+			"washing_machine": false,
+			"water_purifier": true,
+			"power_backup": false,
+			"security": true
+		}
+	},
+	{
+		"id": "prop_pg_007",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 14000,
+		"deposit": 14000,
+		"maintenance": 0,
+		"negotiable": true,
+		"final_price": 14000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 31",
+			"micro_locality": "Near Rajiv Chowk",
+			"landmarks": ["Rajiv Chowk", "Sector 31 Market"],
+			"transport": {
+				"company_bus": "Some IT companies",
+				"auto_rickshaw": true,
+				"nearest_metro": "Rajiv Chowk"
+			},
+			"coordinates": {
+				"lat": 28.4568,
+				"lng": 77.0374
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 130,
+			"furnishing": "furnished",
+			"floor": 3,
+			"total_floors": 5,
+			"age": 3,
+			"available_from": "2023-12-01",
+			"tenant_preference": "working_professional",
+			"gender_preference": "female"
+		},
+		"pg_specific": {
+			"meals_included": "breakfast_dinner",
+			"room_sharing": "single",
+			"laundry_service": true,
+			"housekeeping": "daily",
+			"curfew_time": "11:00 PM",
+			"visitor_policy": "day_only",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": true,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true
+		}
+	},
+	{
+		"id": "prop_pg_008",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 11000,
+		"deposit": 11000,
+		"maintenance": 0,
+		"negotiable": false,
+		"final_price": 11000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 22",
+			"micro_locality": "Near Sadar Bazar",
+			"landmarks": ["Sadar Bazar", "Sector 22 Market"],
+			"transport": {
+				"company_bus": false,
+				"auto_rickshaw": true,
+				"nearest_metro": "Sikanderpur"
+			},
+			"coordinates": {
+				"lat": 28.4765,
+				"lng": 77.0652
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 115,
+			"furnishing": "semi-furnished",
+			"floor": 2,
+			"total_floors": 3,
+			"age": 4,
+			"available_from": "2023-11-25",
+			"tenant_preference": "student",
+			"gender_preference": "any"
+		},
+		"pg_specific": {
+			"meals_included": "breakfast",
+			"room_sharing": "double",
+			"laundry_service": true,
+			"housekeeping": "weekly",
+			"curfew_time": "10:30 PM",
+			"visitor_policy": "restricted",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": false,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true
+		}
+	},
+	{
+		"id": "prop_pg_009",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 16000,
+		"deposit": 16000,
+		"maintenance": 0,
+		"negotiable": false,
+		"final_price": 16000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 54",
+			"micro_locality": "Near Golf Course Extension",
+			"landmarks": ["Golf Course Extension Road", "Unitech Heights"],
+			"transport": {
+				"company_bus": "Multiple IT companies",
+				"auto_rickshaw": true,
+				"nearest_metro": "Sector 54"
+			},
+			"coordinates": {
+				"lat": 28.4265,
+				"lng": 77.0932
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 150,
+			"furnishing": "fully-furnished",
+			"floor": 4,
+			"total_floors": 7,
+			"age": 2,
+			"available_from": "2023-12-10",
+			"tenant_preference": "working_professional",
+			"gender_preference": "any"
+		},
+		"pg_specific": {
+			"meals_included": "all",
+			"room_sharing": "single",
+			"laundry_service": true,
+			"housekeeping": "daily",
+			"curfew_time": "12:00 AM",
+			"visitor_policy": "day_only",
+			"food_type": "veg_nonveg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": true,
+			"tv": true,
+			"refrigerator": true,
+			"washing_machine": true,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true,
+			"gym": true,
+			"swimming_pool": false
+		}
+	},
+	{
+		"id": "prop_pg_010",
+		"listing_type": "rent",
+		"property_type": "pg",
+		"subtype": "residential",
+		"status": "available",
+		"bedrooms": 1,
+		"price": 9500,
+		"deposit": 9500,
+		"maintenance": 500,
+		"negotiable": true,
+		"final_price": 10000,
+		"location": {
+			"city": "Gurugram",
+			"locality": "Sector 10",
+			"micro_locality": "Near Civil Hospital",
+			"landmarks": ["Civil Hospital", "Sector 10 Market"],
+			"transport": {
+				"company_bus": false,
+				"auto_rickshaw": true,
+				"nearest_metro": "Sikanderpur"
+			},
+			"coordinates": {
+				"lat": 28.4662,
+				"lng": 77.0328
+			}
+		},
+		"specs": {
+			"bedrooms": 1,
+			"bathrooms": 1,
+			"carpet_area": 105,
+			"furnishing": "semi-furnished",
+			"floor": 1,
+			"total_floors": 2,
+			"age": 5,
+			"available_from": "2023-11-15",
+			"tenant_preference": "student",
+			"gender_preference": "female"
+		},
+		"pg_specific": {
+			"meals_included": "breakfast_dinner",
+			"room_sharing": "double",
+			"laundry_service": false,
+			"housekeeping": "weekly",
+			"curfew_time": "10:00 PM",
+			"visitor_policy": "restricted",
+			"food_type": "veg"
+		},
+		"amenities": {
+			"wifi": true,
+			"ac": false,
+			"tv": false,
+			"refrigerator": true,
+			"washing_machine": false,
+			"water_purifier": true,
+			"power_backup": true,
+			"security": true
+		}
+	}
+]
